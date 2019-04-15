@@ -4,7 +4,7 @@ import { Login } from "./Login/Login";
 import { Dashboard } from "./Dashboard/Dashboard";
 // import logo from "./img/logo-bianco.png";
 import Cookies from "universal-cookie";
-import { Container, Header, Input, Button } from "semantic-ui-react";
+import { Container, Header, Input, Button, Loader } from "semantic-ui-react";
 import "./App.css";
 
 const cookies = new Cookies();
@@ -21,8 +21,6 @@ class App extends Component {
   };
 
   inputHandler = event => {
-    console.log(event.target.name);
-    console.log(event.target.value);
     let name = event.target.name;
     this.setState({ [name]: event.target.value });
   };
@@ -51,7 +49,9 @@ class App extends Component {
       <div>
         {this.state.loading && !this.state.loginstatus && (
           <div>
-            <h1> Loading </h1>
+            <br />
+            <br />
+            <Loader active inline="centered" size="big" />
           </div>
         )}
         {!this.state.loading && !this.state.loginstatus && (

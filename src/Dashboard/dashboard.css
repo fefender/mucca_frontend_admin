@@ -1,0 +1,24 @@
+.dashboard > h2 > img {
+  padding-right: 1.5 em;
+  padding-bottom: 1.5 em;
+}
+.dashboard-content {
+  width: 100%;
+  display: flex;
+  align-content: flex-start;
+}
+.dashboard-content > .left {
+  width: 30%;
+  margin: auto;
+}
+.dashboard-content > .right {
+  width: 30%;
+  width: 70%;
+}
+.buttondivider {
+  width: 10px;
+}
+.btnlabel {
+  color: #000;
+  vertical-align: text-bottom;
+}
