@@ -1,14 +1,34 @@
 import React, { Component } from "react";
-import { Image, Input, Button, Icon, Grid, Container } from "semantic-ui-react";
+import Cookies from "universal-cookie";
+import {
+  Image,
+  Input,
+  Button,
+  Icon,
+  Grid,
+  Container,
+  Select
+} from "semantic-ui-react";
+
+const cookies = new Cookies();
+const options = [
+  { key: "develop", text: "develop", value: "develop" },
+  { key: "production", text: "production", value: "production" },
+  { key: "stage", text: "stage", value: "stage" }
+];
 
 class TopControl extends Component {
   state = {
-    environment: ""
+    environment: cookies.get("userEnv")
   };
 
-  envHandler = event => {
-    let name = event.target.name;
-    this.setState({ [name]: event.target.value });
+  envHandler = (event, { value }) => {
+    this.setState({ environment: value });
+  };
+
+  changeEnv = e => {
+    cookies.remove("userEnv");
+    return cookies.set("userEnv", this.state.environment);
   };
 
   render() {
@@ -35,24 +55,21 @@ class TopControl extends Component {
                   <Icon name="pause" circular color="violet" size="small" />
                 </Button>
               </Button.Group>
-              <Input
+              <Select
                 floated="right"
                 size="mini"
-                list="environment"
-                placeholder="Environment..."
-                name="environment"
-                value={this.state.environment}
+                options={options}
+                defaultValue={this.state.environment}
                 onChange={this.envHandler}
               />
-              <datalist id="environment">
-                <option value="develop" />
-                <option value="production" />
-                <option value="stage" />
-              </datalist>
-              <Button type="submit" color="violet" compact>
+              <Button
+                type="submit"
+                color="violet"
+                compact
+                onClick={this.changeEnv}
+              >
                 ok
               </Button>
-              {/* </Input> */}
             </Grid.Column>
           </Grid.Row>
         </Grid>

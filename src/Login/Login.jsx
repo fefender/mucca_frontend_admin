@@ -47,8 +47,8 @@ export class Login extends Component {
       }
     })
       .then(function(response) {
-        cookies.set("userToken", response.data.token, { path: "/" });
-        cookies.set("userKey", response.data.key, { path: "/" });
+        cookies.set("userToken", response.data.data.token, { path: "/" });
+        cookies.set("userKey", response.data.data.key, { path: "/" });
         cookies.set("userEnv", environment, { path: "/" });
         self.authorization(
           cookies.get("userToken"),
