@@ -27,9 +27,8 @@ export class Dashboard extends Component {
             <LeftMenu />
           </div>
           <div className="right">
-            RIGHT
             <Switch>
-              <Route path="/home" exact render={HomeView} />
+              <Route path="/" exact render={HomeView} />
               {/* <Route path="/video" render={VideoView} />
               <Route path="/playlists" render={PlaylistView} />
               <Route path="/publishers" render={PublishersView} /> */}

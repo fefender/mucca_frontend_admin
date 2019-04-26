@@ -15,7 +15,7 @@ export class LeftMenu extends Component {
         <Menu.Item
           name="home"
           as={Link}
-          to="/home"
+          to="/"
           active={activeItem === "home"}
           onClick={this.handleItemClick}
         />

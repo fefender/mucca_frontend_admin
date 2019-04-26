@@ -142,15 +142,14 @@ export class Api {
       });
   };
 
-  read = (query, callback) => {
+  read = (env, query, callback) => {
     let userToken = Promise.resolve(cookies.get("userToken"));
     let userKey = Promise.resolve(cookies.get("userKey"));
     let userEnv = Promise.resolve(cookies.get("userEnv"));
     let url = process.env.REACT_APP_SERV_URL;
     let version = process.env.REACT_APP_VERSION;
     let action = process.env.REACT_APP_ACTION_R;
-    let fullPath =
-      url + "/" + version + "/" + action + "/" + userEnv + "/" + query;
+    let fullPath = url + "/" + version + "/" + action + "/" + env + "/" + query;
     Promise.all([userToken, userKey])
       .then(function(result) {
         let gotToken = result[0];

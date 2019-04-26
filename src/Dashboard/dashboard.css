@@ -10,6 +10,8 @@
 .dashboard-content > .left {
   width: 30%;
   margin: auto;
+  margin-top: 0;
+  margin-right: 0;
 }
 .dashboard-content > .right {
   width: 30%;
@@ -21,4 +23,9 @@
 .btnlabel {
   color: #000;
   vertical-align: text-bottom;
+}
+.appConfig > ul {
+  list-style-type: none;
+  margin-left: 0;
+  padding: 0;
 }
