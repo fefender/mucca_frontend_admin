@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { Header, Icon, Container, Button, Input } from "semantic-ui-react";
+import {
+  Header,
+  Grid,
+  Icon,
+  Container,
+  Button,
+  Input
+} from "semantic-ui-react";
 import LeftMenu from "../Components/Sections/LeftMenu";
 import HomeView from "../Components/Views/HomeView";
 // import VideoView from "../components/views/Video/Video";
@@ -23,20 +30,22 @@ export class Dashboard extends Component {
         <TopControl />
         <br />
         <div className="dashboard-content">
-          <div className="left">
-            <LeftMenu />
-          </div>
-          <div className="right">
-            <Switch>
-              <Route path="/" exact render={HomeView} />
-              {/* <Route path="/video" render={VideoView} />
+          <Grid container columns="equal">
+            <Grid.Column floated="left">
+              <LeftMenu />
+            </Grid.Column>
+            <Grid.Column width={12}>
+              <Switch>
+                <Route path="/" exact render={HomeView} />
+                {/* <Route path="/video" render={VideoView} />
               <Route path="/playlists" render={PlaylistView} />
               <Route path="/publishers" render={PublishersView} /> */}
-              <Route path="/settings" render={SettingsView} />
-              {/* <Route path="/player/:type/:id" render={SingleView} />
+                <Route path="/settings" render={SettingsView} />
+                {/* <Route path="/player/:type/:id" render={SingleView} />
               <Route render={NotFoundView} /> */}
-            </Switch>
-          </div>
+              </Switch>
+            </Grid.Column>
+          </Grid>
         </div>
       </div>
     );
