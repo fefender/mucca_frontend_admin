@@ -7,7 +7,8 @@ import {
   Icon,
   Grid,
   Container,
-  Select
+  Select,
+  Header
 } from "semantic-ui-react";
 
 const cookies = new Cookies();
@@ -40,10 +41,39 @@ class TopControl extends Component {
               <Container />
             </Grid.Column>
             <Grid.Column>
-              <Container />
+              <Button.Group icon compact>
+                <Button inverted size="small">
+                  <span className="btnlabel">Start </span>
+                  <Icon name="play" circular color="violet" size="small" />
+                </Button>
+                <span className="buttondivider" />
+                <Button inverted size="small">
+                  <span className="btnlabel">Stop </span>
+
+                  <Icon name="pause" circular color="violet" size="small" />
+                </Button>
+              </Button.Group>
+              <Select
+                floated="right"
+                size="mini"
+                options={options}
+                defaultValue={this.state.environment}
+                onChange={this.envHandler}
+              />
+              <span className="spazio" />
+              <Button
+                type="submit"
+                basic
+                color="violet"
+                // compact
+                onClick={this.changeEnv}
+              >
+                ok
+              </Button>
             </Grid.Column>
             <Grid.Column floated="right">
-              <Button.Group icon compact>
+              <Container />
+              {/* <Button.Group icon compact>
                 <Button inverted size="small">
                   <span className="btnlabel">Start </span>
                   <Icon name="play" circular color="violet" size="small" />
@@ -69,7 +99,7 @@ class TopControl extends Component {
                 onClick={this.changeEnv}
               >
                 ok
-              </Button>
+              </Button> */}
             </Grid.Column>
           </Grid.Row>
         </Grid>

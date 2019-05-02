@@ -1,8 +1,11 @@
+.dashboard {
+}
 .dashboard > h2 > img {
   padding-right: 1.5 em;
   padding-bottom: 1.5 em;
 }
 .dashboard-content {
+  background-color: rgb(238, 238, 238);
   width: 100%;
   display: flex;
   align-content: flex-start;
@@ -30,3 +33,10 @@
 /* .arrowIcon {
   vertical-align: text-bottom;
 } */
+.topcontrol {
+  background-color: rgb(238, 238, 238);
+}
+.spazio {
+  display: inline-block;
+  width: 10px;
+}

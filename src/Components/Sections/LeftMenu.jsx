@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Menu } from "semantic-ui-react";
+import { Menu, Container, Header } from "semantic-ui-react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 export class LeftMenu extends Component {
@@ -11,7 +11,7 @@ export class LeftMenu extends Component {
     const { activeItem } = this.state;
 
     return (
-      <Menu pointing secondary vertical color="violet">
+      <Menu pointing secondary color="violet" size="huge">
         <Menu.Item
           name="home"
           as={Link}
@@ -40,6 +40,15 @@ export class LeftMenu extends Component {
           active={activeItem === "friends"}
           onClick={this.handleItemClick}
         />
+        <Menu.Menu position="right">
+          <Menu.Item
+            name="logout"
+            as={Link}
+            to="/logout"
+            active={activeItem === "logout"}
+            onClick={this.handleItemClick}
+          />
+        </Menu.Menu>
       </Menu>
     );
   }

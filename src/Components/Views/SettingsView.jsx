@@ -1,11 +1,10 @@
 import React from "react";
-// import Controller from "../../widgets/controller";
+import AddService from "../Sections/AddService";
 
 const SettingsView = () => {
   return (
     <div className="settings">
-      <p>Settings</p>
-      {/* <Controller /> */}
+      <AddService />
     </div>
   );
 };

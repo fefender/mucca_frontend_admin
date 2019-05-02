@@ -24,17 +24,17 @@ export class Dashboard extends Component {
   renderDashboard = () => {
     return (
       <div className="dashboard">
-        <Header as="h2" color="grey" dividing>
+        {/* <Header as="h2" color="grey" dividing>
           Mucca Admin Dashboard
-        </Header>
+        </Header> */}
+        <LeftMenu />
         <TopControl />
-        <br />
         <div className="dashboard-content">
           <Grid container columns="equal">
-            <Grid.Column floated="left">
+            {/* <Grid.Column floated="left">
               <LeftMenu />
-            </Grid.Column>
-            <Grid.Column width={12}>
+            </Grid.Column> */}
+            <Grid.Column>
               <Switch>
                 <Route path="/" exact render={HomeView} />
                 {/* <Route path="/video" render={VideoView} />
@@ -42,6 +42,7 @@ export class Dashboard extends Component {
               <Route path="/publishers" render={PublishersView} /> */}
                 <Route path="/settings" render={SettingsView} />
                 {/* <Route path="/player/:type/:id" render={SingleView} />
+              <Route path="/logout" render={LogoutView} />
               <Route render={NotFoundView} /> */}
               </Switch>
             </Grid.Column>
