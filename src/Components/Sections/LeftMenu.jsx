@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import { Menu, Container, Header } from "semantic-ui-react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  NavLink
+} from "react-router-dom";
 
 export class LeftMenu extends Component {
-  state = { activeItem: "home" };
+  state = { activeItem: "" };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
@@ -14,28 +20,29 @@ export class LeftMenu extends Component {
       <Menu pointing secondary color="violet" size="huge">
         <Menu.Item
           name="home"
-          as={Link}
+          as={NavLink}
+          exact
           to="/"
           active={activeItem === "home"}
           onClick={this.handleItemClick}
         />
         <Menu.Item
           name="settings"
-          as={Link}
+          as={NavLink}
           to="/settings"
           active={activeItem === "settings"}
           onClick={this.handleItemClick}
         />
         <Menu.Item
           name="messages"
-          as={Link}
+          as={NavLink}
           to="/messages"
           active={activeItem === "messages"}
           onClick={this.handleItemClick}
         />
         <Menu.Item
           name="friends"
-          as={Link}
+          as={NavLink}
           to="/friends"
           active={activeItem === "friends"}
           onClick={this.handleItemClick}
@@ -43,7 +50,7 @@ export class LeftMenu extends Component {
         <Menu.Menu position="right">
           <Menu.Item
             name="logout"
-            as={Link}
+            as={NavLink}
             to="/logout"
             active={activeItem === "logout"}
             onClick={this.handleItemClick}

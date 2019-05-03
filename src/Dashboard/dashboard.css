@@ -5,7 +5,8 @@
   padding-bottom: 1.5 em;
 }
 .dashboard-content {
-  background-color: rgb(238, 238, 238);
+  /* background-color: rgb(238, 238, 238); */
+  background-color: rgb(245, 245, 245);
   width: 100%;
   display: flex;
   align-content: flex-start;
@@ -34,9 +35,19 @@
   vertical-align: text-bottom;
 } */
 .topcontrol {
-  background-color: rgb(238, 238, 238);
+  /* background-color: rgb(238, 238, 238); */
+  background-color: rgb(245, 245, 245);
 }
 .spazio {
   display: inline-block;
   width: 10px;
+}
+.servTitle {
+  text-transform: uppercase !important;
+  margin-top: 2px !important;
+  margin-left: 2px !important;
+}
+.spazioH {
+  display: inline-block;
+  height: 10px;
 }

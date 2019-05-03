@@ -27,14 +27,25 @@ export class Api {
     });
   };
 
-  create = (dataToPost, callback) => {
+  create = (env, query, subject, dataToPost, callback) => {
     let userToken = Promise.resolve(cookies.get("userToken"));
     let userKey = Promise.resolve(cookies.get("userKey"));
     let userEnv = Promise.resolve(cookies.get("userEnv"));
     let url = process.env.REACT_APP_SERV_URL;
     let version = process.env.REACT_APP_VERSION;
     let action = process.env.REACT_APP_ACTION_C;
-    let fullPath = url + "/" + version + "/" + action + "/" + userEnv;
+    let fullPath =
+      url +
+      "/" +
+      version +
+      "/" +
+      action +
+      "/" +
+      env +
+      "/" +
+      query +
+      "/" +
+      subject;
     Promise.all([userToken, userKey])
       .then(function(result) {
         let gotToken = result[0];
