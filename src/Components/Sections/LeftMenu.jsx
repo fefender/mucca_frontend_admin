@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Menu, Container, Header } from "semantic-ui-react";
+import Cookies from "universal-cookie";
 import {
   BrowserRouter as Router,
   Route,
@@ -7,11 +8,38 @@ import {
   Switch,
   NavLink
 } from "react-router-dom";
+import Api from "../../api";
+
+const api = new Api();
+const cookies = new Cookies();
 
 export class LeftMenu extends Component {
   state = { activeItem: "" };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+  logout = e => {
+    api.logout(this.logoutRes);
+  };
+
+  logoutRes = res => {
+    this.setState({ activeItem: "" });
+    if (res && res.status === 200) {
+      console.log("logged out");
+      let tok = cookies.get("userToken");
+      let key = cookies.get("userKey");
+      let env = cookies.get("userEnv");
+      if (tok && key) {
+        cookies.remove("userToken");
+        cookies.remove("userKey");
+        cookies.remove("userEnv");
+      }
+      cookies.remove("userToken");
+      cookies.remove("userKey");
+      cookies.remove("userEnv");
+    }
+    // this.props.history.push("/");
+  };
 
   render() {
     const { activeItem } = this.state;
@@ -53,7 +81,7 @@ export class LeftMenu extends Component {
             as={NavLink}
             to="/logout"
             active={activeItem === "logout"}
-            onClick={this.handleItemClick}
+            onClick={this.logout}
           />
         </Menu.Menu>
       </Menu>

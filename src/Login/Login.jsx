@@ -25,7 +25,7 @@ export class Login extends Component {
       .catch(function(error) {
         cookies.remove("username", { path: "/" });
         cookies.remove("userToken", { path: "/" });
-        cookies.remove("userKey", { path: "/" });
+        // cookies.remove("userKey", { path: "/" });
         callback(false);
       });
   }

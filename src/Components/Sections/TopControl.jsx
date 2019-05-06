@@ -73,39 +73,33 @@ class TopControl extends Component {
             </Grid.Column>
             <Grid.Column floated="right">
               <Container />
-              {/* <Button.Group icon compact>
-                <Button inverted size="small">
-                  <span className="btnlabel">Start </span>
-                  <Icon name="play" circular color="violet" size="small" />
-                </Button>
-                <span className="buttondivider" />
-                <Button inverted size="small">
-                  <span className="btnlabel">Stop </span>
-
-                  <Icon name="pause" circular color="violet" size="small" />
-                </Button>
-              </Button.Group>
-              <Select
-                floated="right"
-                size="mini"
-                options={options}
-                defaultValue={this.state.environment}
-                onChange={this.envHandler}
-              />
-              <Button
-                type="submit"
-                color="violet"
-                compact
-                onClick={this.changeEnv}
-              >
-                ok
-              </Button> */}
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </div>
     );
   }
+  // componentWillMount() {
+  //   console.log("will mount in topcontrol");
+  //   if (
+  //     typeof cookies.get("userToken") != "undefined" &&
+  //     cookies.get("userToken")
+  //   ) {
+  //     if (
+  //       typeof cookies.get("userKey") != "undefined" &&
+  //       cookies.get("userKey")
+  //     ) {
+  //       login.authorization(
+  //         cookies.get("userToken"),
+  //         cookies.get("userKey"),
+  //         this.setAuthorization
+  //       );
+  //     }
+  //   } else {
+  //     console.log("start FAKE authorization");
+  //     login.authorization("noToken", "noKey", this.setAuthorization);
+  //   }
+  // }
 }
 
 export default TopControl;

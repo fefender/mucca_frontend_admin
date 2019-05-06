@@ -75,10 +75,20 @@ class AppConfig extends Component {
         loaded: true
       });
     }
+    if (res && res.status === 401) {
+      cookies.remove("userToken");
+      cookies.remove("userKey");
+      cookies.remove("userEnv");
+    }
   };
   getPortList = res => {
     if (res && res.status === 200) {
       this.setState({ portList: res.data.data[this.state.environment] });
+    }
+    if (res && res.status === 401) {
+      cookies.remove("userToken");
+      cookies.remove("userKey");
+      cookies.remove("userEnv");
     }
   };
 
@@ -307,130 +317,6 @@ class AppConfig extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        {/* <Accordion exclusive={false}>
-          <Accordion.Title onClick={this.handleClick0}>
-            <Header as="h3" color="blue">
-              Application Info
-              <Icon
-                name="angle down"
-                flipped={this.state.active0 ? "vertically" : "horizontally"}
-              />
-            </Header>
-          </Accordion.Title>
-          <Transition
-            animation="slide down"
-            duration={this.state.duration}
-            visible={this.state.active0}
-          >
-            <Accordion.Content active={this.state.active0}>
-              <Segment color="blue">
-                {this.state.loaded && this.setAppInfo()}
-              </Segment>
-            </Accordion.Content>
-          </Transition>
-          <Accordion.Title onClick={this.handleClick1}>
-            <Header as="h3" color="violet">
-              Core Services
-              <Icon
-                name="angle down"
-                flipped={this.state.active1 ? "vertically" : "horizontally"}
-              />
-            </Header>
-          </Accordion.Title>
-          <Transition
-            animation="slide down"
-            duration={this.state.duration}
-            visible={this.state.active1}
-          >
-            <Accordion.Content active={this.state.active1}>
-              <Segment color="violet">
-                {this.state.loaded && this.genericSetter(this.state.core)}
-              </Segment>
-            </Accordion.Content>
-          </Transition>
-          <Accordion.Title onClick={this.handleClick2}>
-            <Header as="h3" color="purple">
-              Core Consumers
-              <Icon
-                name="angle down"
-                flipped={this.state.active2 ? "vertically" : "horizontally"}
-              />
-            </Header>
-          </Accordion.Title>
-          <Transition
-            animation="slide down"
-            duration={this.state.duration}
-            visible={this.state.active2}
-          >
-            <Accordion.Content active={this.state.active2}>
-              <Segment color="purple">
-                {this.state.loaded &&
-                  this.genericSetter(this.state.coreEventConsumer)}
-              </Segment>
-            </Accordion.Content>
-          </Transition>
-          <Accordion.Title onClick={this.handleClick3}>
-            <Header as="h3" color="red">
-              Custom Services
-              <Icon
-                name="angle down"
-                flipped={this.state.active3 ? "vertically" : "horizontally"}
-              />
-            </Header>
-          </Accordion.Title>
-          <Transition
-            animation="slide down"
-            duration={this.state.duration}
-            visible={this.state.active3}
-          >
-            <Accordion.Content active={this.state.active3}>
-              <Segment color="red">
-                {this.state.loaded && this.genericSetter(this.state.mpkg)}
-              </Segment>
-            </Accordion.Content>
-          </Transition>
-          <Accordion.Title onClick={this.handleClick4}>
-            <Header as="h3" color="orange">
-              Custom Consumers
-              <Icon
-                name="angle down"
-                flipped={this.state.active4 ? "vertically" : "horizontally"}
-              />
-            </Header>
-          </Accordion.Title>
-          <Transition
-            animation="slide down"
-            duration={this.state.duration}
-            visible={this.state.active4}
-          >
-            <Accordion.Content active={this.state.active4}>
-              <Segment color="orange">
-                {this.state.loaded &&
-                  this.genericSetter(this.state.mpkgEventConsumer)}
-              </Segment>
-            </Accordion.Content>
-          </Transition>
-          <Accordion.Title onClick={this.handleClick5}>
-            <Header as="h3" color="teal">
-              Storage
-              <Icon
-                name="angle down"
-                flipped={this.state.active5 ? "vertically" : "horizontally"}
-              />
-            </Header>
-          </Accordion.Title>
-          <Transition
-            animation="slide down"
-            duration={this.state.duration}
-            visible={this.state.active5}
-          >
-            <Accordion.Content active={this.state.active5}>
-              <Segment color="teal">
-                {this.state.loaded && this.genericSetter(this.state.storage)}
-              </Segment>
-            </Accordion.Content>
-          </Transition>
-        </Accordion> */}
       </div>
     );
   }

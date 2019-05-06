@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import {
   Header,
   Grid,
@@ -8,8 +14,11 @@ import {
   Button,
   Input
 } from "semantic-ui-react";
+import Cookies from "universal-cookie";
+import Login from "../Login/Login";
 import LeftMenu from "../Components/Sections/LeftMenu";
 import HomeView from "../Components/Views/HomeView";
+import LogoutView from "../Components/Views/LogoutView";
 // import VideoView from "../components/views/Video/Video";
 // import PlaylistView from "../components/views/Playlist/Playlist";
 // import PublishersView from "../components/views/Publishers/Publishers";
@@ -20,13 +29,14 @@ import SettingsView from "../Components/Views/SettingsView";
 import TopControl from "../Components/Sections/TopControl";
 import "./dashboard.css";
 
+// const cookies = new Cookies();
+// const login = new Login();
+
 export class Dashboard extends Component {
   renderDashboard = () => {
+    console.log("rendering dashboard");
     return (
       <div className="dashboard">
-        {/* <Header as="h2" color="grey" dividing>
-          Mucca Admin Dashboard
-        </Header> */}
         <LeftMenu />
         <TopControl />
         <div className="dashboard-content">
@@ -41,9 +51,10 @@ export class Dashboard extends Component {
               <Route path="/playlists" render={PlaylistView} />
               <Route path="/publishers" render={PublishersView} /> */}
                 <Route path="/settings" render={SettingsView} />
-                {/* <Route path="/player/:type/:id" render={SingleView} />
-              <Route path="/logout" render={LogoutView} />
-              <Route render={NotFoundView} /> */}
+                {/* <Route path="/player/:type/:id" render={SingleView} />*/}
+                <Route path="/logout" render={LogoutView} />
+                {/*<Route render={NotFoundView} /> */}
+                {/* <Redirect from="/logout" to="/" /> */}
               </Switch>
             </Grid.Column>
           </Grid>

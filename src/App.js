@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Login } from "./Login/Login";
 import { Dashboard } from "./Dashboard/Dashboard";
 // import logo from "./img/logo-bianco.png";
@@ -36,12 +37,13 @@ class App extends Component {
 
   setAuthorization = auth => {
     if (auth === false) {
-      console.log("NON autorizzato");
+      console.log("NON autorizzato", auth);
       this.setState({ loginstatus: auth, loading: false });
     } else {
-      console.log("autorizzato");
+      console.log("autorizzato", auth);
       this.setState({ loginstatus: auth, loading: false });
     }
+    // this.setState({ loginstatus: auth, loading: false });
   };
 
   render() {

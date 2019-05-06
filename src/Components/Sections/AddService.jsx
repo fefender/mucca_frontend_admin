@@ -36,7 +36,8 @@ class AddService extends Component {
     pType: "",
     value: "3",
     pRequired: false,
-    obj: {}
+    obj: {},
+    userEnv: cookies.get("userEnv")
   };
 
   //Segment Visibility Handlers
@@ -163,18 +164,40 @@ class AddService extends Component {
   };
 
   submitModel = () => {
-    let env = Promise.resolve(cookies.get("userEnv")).then(
-      api.create(
-        "model",
-        env,
-        this.state.sName,
-        this.state.obj,
-        this.createResponse
-      )
+    // let env = Promise.resolve(cookies.get("userEnv")).then(
+    api.create(
+      this.state.userEnv,
+      "model",
+      this.state.sName,
+      this.state.obj,
+      this.createResponse
     );
+    // );
   };
 
   createResponse = res => {
+    if (res && res.status === 201) {
+      console.log(res.status);
+      this.updateConfig();
+    }
+  };
+
+  updateConfig = () => {
+    let config = {
+      datamodel: true,
+      ownerfilter: "1",
+      modelname: this.state.sName
+    };
+    api.create(
+      this.state.userEnv,
+      "config",
+      "mpkg",
+      config,
+      this.configResponse
+    );
+  };
+
+  configResponse = res => {
     if (res && res.status === 201) {
       console.log(res.status);
     }
@@ -263,7 +286,8 @@ class AddService extends Component {
                       {this.generateProp()}
                       <br />
                     </Card.Group>
-                    {this.state.count > 1 && (
+                    <br />
+                    {this.state.count > 0 && (
                       <Button
                         type="submit"
                         basic
