@@ -23,9 +23,10 @@ export class Login extends Component {
         callback(true);
       })
       .catch(function(error) {
-        cookies.remove("username", { path: "/" });
+        cookies.remove("userName", { path: "/" });
         cookies.remove("userToken", { path: "/" });
-        // cookies.remove("userKey", { path: "/" });
+        cookies.remove("userKey", { path: "/" });
+        cookies.remove("userEnv", { path: "/" });
         callback(false);
       });
   }
@@ -50,6 +51,7 @@ export class Login extends Component {
         cookies.set("userToken", response.data.data.token, { path: "/" });
         cookies.set("userKey", response.data.data.key, { path: "/" });
         cookies.set("userEnv", environment, { path: "/" });
+        cookies.set("userName", username, { path: "/" });
         self.authorization(
           cookies.get("userToken"),
           cookies.get("userKey"),
@@ -57,9 +59,9 @@ export class Login extends Component {
         );
       })
       .catch(function(error) {
-        cookies.remove("userToken", { path: "/" });
-        cookies.remove("userKey", { path: "/" });
-        cookies.remove("userEnv", { path: "/" });
+        // cookies.remove("userToken", { path: "/" });
+        // cookies.remove("userKey", { path: "/" });
+        // cookies.remove("userEnv", { path: "/" });
         callback(false);
       });
   }

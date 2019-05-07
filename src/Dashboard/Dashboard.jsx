@@ -33,6 +33,12 @@ import "./dashboard.css";
 // const login = new Login();
 
 export class Dashboard extends Component {
+  // state = { env: "" };
+
+  // updateEnv = env => {
+  //   this.setState({ env: env });
+  //   console.log("env changed to ", this.state.env);
+  // };
   renderDashboard = () => {
     console.log("rendering dashboard");
     return (

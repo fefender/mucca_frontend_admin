@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Cookies from "universal-cookie";
 import {
-  Image,
+  Modal,
   Input,
   Button,
   Icon,
@@ -10,6 +10,7 @@ import {
   Select,
   Header
 } from "semantic-ui-react";
+import LoginView from "../../Login/LoginView";
 
 const cookies = new Cookies();
 const options = [
@@ -20,7 +21,9 @@ const options = [
 
 class TopControl extends Component {
   state = {
-    environment: cookies.get("userEnv")
+    environment: cookies.get("userEnv"),
+    modalOpen: false,
+    errOpen: false
   };
 
   envHandler = (event, { value }) => {
@@ -29,7 +32,23 @@ class TopControl extends Component {
 
   changeEnv = e => {
     cookies.remove("userEnv");
-    return cookies.set("userEnv", this.state.environment);
+    cookies.set("userEnv", this.state.environment);
+    return window.location.reload();
+  };
+
+  handleOpen = () => this.setState({ modalOpen: true });
+  handleClose = () => this.setState({ modalOpen: false, errOpen: false });
+
+  handleOpenErr = () => this.setState({ errOpen: true });
+
+  handleCloseErr = () => this.setState({ errOpen: false });
+
+  checkStatus = res => {
+    if (res) {
+      this.changeEnv();
+    } else {
+      this.setState({ errOpen: true });
+    }
   };
 
   render() {
@@ -66,7 +85,8 @@ class TopControl extends Component {
                 basic
                 color="violet"
                 // compact
-                onClick={this.changeEnv}
+                // onClick={this.changeEnv}
+                onClick={this.handleOpen}
               >
                 ok
               </Button>
@@ -76,30 +96,61 @@ class TopControl extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <Modal
+          open={this.state.modalOpen}
+          onClose={this.handleClose}
+          basic
+          size="small"
+          dimmer="blurring"
+        >
+          <Modal.Content>
+            {this.state.errOpen ? (
+              <Container className="loginEnv">
+                <Header
+                  icon="warning sign"
+                  content="Incorrect username or password"
+                  color="red"
+                  textAlign="center"
+                />
+              </Container>
+            ) : (
+              <LoginView
+                status={this.checkStatus}
+                env={this.state.environment}
+              />
+            )}
+            {/* <LoginView status={this.checkStatus} env={this.state.environment} /> */}
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="red" onClick={this.handleClose}>
+              <Icon name="remove" /> Close
+            </Button>
+          </Modal.Actions>
+        </Modal>
+        {/* <Modal
+          open={this.state.modalOpenErr}
+          onClose={this.handleCloseErr}
+          basic
+          size="small"
+          dimmer="blurring"
+        >
+          <Modal.Content>
+            <Header
+              icon="warning sign"
+              content="Incorrect username or password"
+              color="red"
+              textAlign="center"
+            />
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="red" onClick={this.handleCloseErr}>
+              <Icon name="remove" /> Close
+            </Button>
+          </Modal.Actions>
+        </Modal> */}
       </div>
     );
   }
-  // componentWillMount() {
-  //   console.log("will mount in topcontrol");
-  //   if (
-  //     typeof cookies.get("userToken") != "undefined" &&
-  //     cookies.get("userToken")
-  //   ) {
-  //     if (
-  //       typeof cookies.get("userKey") != "undefined" &&
-  //       cookies.get("userKey")
-  //     ) {
-  //       login.authorization(
-  //         cookies.get("userToken"),
-  //         cookies.get("userKey"),
-  //         this.setAuthorization
-  //       );
-  //     }
-  //   } else {
-  //     console.log("start FAKE authorization");
-  //     login.authorization("noToken", "noKey", this.setAuthorization);
-  //   }
-  // }
 }
 
 export default TopControl;
