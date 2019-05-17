@@ -129,6 +129,33 @@ class AddService extends Component {
     });
   };
 
+  //Removes Property from model
+  removeProperty = (event, { value }) => {
+    console.log("!!!", value);
+    console.log(this.state.obj);
+    let obj = this.state.obj;
+    let name = obj.modelname;
+    let newReq = obj.required;
+    let newUniq = obj.uniqueindex;
+    let newPropr = {};
+
+    for (let x in obj.properties) {
+      if (x !== value) {
+        let prop = { [x]: obj.properties[x] };
+        Object.assign(newPropr, prop);
+      }
+    }
+    newReq = newReq.filter(n => n !== value);
+    newUniq = newUniq.filter(n => n !== value);
+    let newObj = {
+      required: newReq,
+      modelname: name,
+      properties: newPropr,
+      uniqueindex: newUniq
+    };
+    this.setState({ obj: newObj });
+  };
+
   //Add new model in view
   checkArray = val => {
     for (let x in this.state.obj.uniqueindex) {
@@ -146,13 +173,24 @@ class AddService extends Component {
     let required = false;
     let unicIndx = false;
     let count = 0;
-    console.log("***", obj.properties);
     for (let x in obj.properties) {
       unicIndx = this.checkArray(obj.properties[x].description);
 
       let form = (
         <Container fluid color="red">
           {/* <br /> */}
+          <Button
+            floated="right"
+            size="mini"
+            compact
+            inverted
+            color="red"
+            circular
+            icon="remove"
+            className="removeIcon"
+            onClick={this.removeProperty}
+            value={obj.properties[x].description}
+          />
           <Header as="h4" color="red" className="servTitle">
             <Icon name="folder open" />
             {x}

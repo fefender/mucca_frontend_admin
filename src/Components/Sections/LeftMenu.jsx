@@ -62,10 +62,10 @@ export class LeftMenu extends Component {
           onClick={this.handleItemClick}
         />
         <Menu.Item
-          name="messages"
+          name="logs"
           as={NavLink}
-          to="/messages"
-          active={activeItem === "messages"}
+          to="/logs"
+          active={activeItem === "logs"}
           onClick={this.handleItemClick}
         />
         <Menu.Item

@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 import Cookies from "universal-cookie";
+import Api from "../../api";
 import {
   Modal,
   Input,
   Button,
   Icon,
-  Grid,
+  Menu,
   Container,
   Select,
   Header
 } from "semantic-ui-react";
+import { BrowserRouter as Link, NavLink } from "react-router-dom";
 import LoginView from "../../Login/LoginView";
 
 const cookies = new Cookies();
+const myapi = new Api();
 const options = [
   { key: "develop", text: "develop", value: "develop" },
   { key: "production", text: "production", value: "production" },
@@ -43,6 +46,8 @@ class TopControl extends Component {
 
   handleCloseErr = () => this.setState({ errOpen: false });
 
+  // handleItemClick = name => this.setState({ activeItem: name });
+
   checkStatus = res => {
     if (res) {
       this.changeEnv();
@@ -51,27 +56,100 @@ class TopControl extends Component {
     }
   };
 
+  //triggers
+  triggerCommand = (e, { value }) => {
+    console.log("!", value);
+    myapi.trigger(this.state.environment, value, this.triggerResponse);
+  };
+
+  triggerResponse = res => {
+    console.log("trigger response", res);
+    if (res && res.status === 200) {
+      let action = res.data.data.action;
+      let port = res.data.data.port;
+      let file = res.data.data.fname;
+      cookies.get("logPort") !== undefined && cookies.remove("logPort");
+      cookies.get("logFile") !== undefined && cookies.remove("logFile");
+      cookies.get("logAction") !== undefined && cookies.remove("logAction");
+
+      cookies.set("logPort", port);
+      cookies.set("logFile", file);
+      cookies.set("logAction", action);
+      // return this.redirect(action);
+    }
+  };
+
+  redirect = action => {
+    console.log(window.location);
+    let ref = window.location.origin;
+    let redir = ref + "/logs/" + action;
+    window.location.replace(redir);
+  };
   render() {
+    // const { activeItem } = this.state;
     return (
       <div className="topcontrol">
-        <Grid columns={3}>
-          <Grid.Row floated="right">
-            <Grid.Column>
-              <Container />
-            </Grid.Column>
-            <Grid.Column>
-              <Button.Group icon compact>
-                <Button inverted size="small">
-                  <span className="btnlabel">Start </span>
-                  <Icon name="play" circular color="violet" size="small" />
-                </Button>
-                <span className="buttondivider" />
-                <Button inverted size="small">
-                  <span className="btnlabel">Stop </span>
+        <Container textAlign="center">
+          <Menu compact>
+            {/* <Button.Group icon compact> */}
+            <Menu.Item
+            // as={Link}
+            // to="/logs"
+            // name="reviews"
+            // active={activeItem === "build"}
+            // onClick={this.handleItemClick}
+            >
+              <Button
+                inverted
+                size="small"
+                value="build"
+                onClick={this.triggerCommand}
+              >
+                <span className="btnlabel">Build </span>
+                <Icon name="sitemap" circular color="violet" size="small" />
+              </Button>
+            </Menu.Item>
+            <Menu.Item
+            // as={Link}
+            // to="/logs"
+            // name="run"
+            // active={activeItem === "run"}
+            // onClick={this.handleItemClick}
+            >
+              <span className="buttondivider" />
+              <Button
+                inverted
+                size="small"
+                value="run"
+                onClick={this.triggerCommand}
+              >
+                <span className="btnlabel">Start </span>
+                <Icon name="play" circular color="violet" size="small" />
+              </Button>
+            </Menu.Item>
+            <Menu.Item
+            // as={Link}
+            // to="/logs"
+            // name="stop"
+            // active={activeItem === "stop"}
+            // onClick={this.handleItemClick}
+            >
+              <span className="buttondivider" />
+              <Button
+                inverted
+                size="small"
+                value="stop"
+                onClick={this.triggerCommand}
+              >
+                <span className="btnlabel">Stop </span>
 
-                  <Icon name="pause" circular color="violet" size="small" />
-                </Button>
-              </Button.Group>
+                <Icon name="pause" circular color="violet" size="small" />
+              </Button>
+              <span className="buttondivider" />
+            </Menu.Item>
+            {/* </Button.Group> */}
+
+            <Menu.Item>
               <Select
                 floated="right"
                 size="mini"
@@ -79,6 +157,8 @@ class TopControl extends Component {
                 defaultValue={this.state.environment}
                 onChange={this.envHandler}
               />
+              {/* </Menu.Item>
+            <Menu.Item> */}
               <span className="spazio" />
               <Button
                 type="submit"
@@ -90,12 +170,9 @@ class TopControl extends Component {
               >
                 ok
               </Button>
-            </Grid.Column>
-            <Grid.Column floated="right">
-              <Container />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+            </Menu.Item>
+          </Menu>
+        </Container>
         <Modal
           open={this.state.modalOpen}
           onClose={this.handleClose}
@@ -127,27 +204,6 @@ class TopControl extends Component {
             </Button>
           </Modal.Actions>
         </Modal>
-        {/* <Modal
-          open={this.state.modalOpenErr}
-          onClose={this.handleCloseErr}
-          basic
-          size="small"
-          dimmer="blurring"
-        >
-          <Modal.Content>
-            <Header
-              icon="warning sign"
-              content="Incorrect username or password"
-              color="red"
-              textAlign="center"
-            />
-          </Modal.Content>
-          <Modal.Actions>
-            <Button color="red" onClick={this.handleCloseErr}>
-              <Icon name="remove" /> Close
-            </Button>
-          </Modal.Actions>
-        </Modal> */}
       </div>
     );
   }

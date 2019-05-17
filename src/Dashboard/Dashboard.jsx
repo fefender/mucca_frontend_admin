@@ -19,13 +19,8 @@ import Login from "../Login/Login";
 import LeftMenu from "../Components/Sections/LeftMenu";
 import HomeView from "../Components/Views/HomeView";
 import LogoutView from "../Components/Views/LogoutView";
-// import VideoView from "../components/views/Video/Video";
-// import PlaylistView from "../components/views/Playlist/Playlist";
-// import PublishersView from "../components/views/Publishers/Publishers";
+import LogsView from "../Components/Views/LogsView";
 import SettingsView from "../Components/Views/SettingsView";
-// import SingleView from "../components/views/Single/Single";
-// import NotFoundView from "../components/views/NotFound/NotFound";
-// import UserController from "../components/widgets/userController";
 import TopControl from "../Components/Sections/TopControl";
 import "./dashboard.css";
 
@@ -57,7 +52,7 @@ export class Dashboard extends Component {
               <Route path="/playlists" render={PlaylistView} />
               <Route path="/publishers" render={PublishersView} /> */}
                 <Route path="/settings" render={SettingsView} />
-                {/* <Route path="/player/:type/:id" render={SingleView} />*/}
+                <Route path="/logs" render={LogsView} />
                 <Route path="/logout" render={LogoutView} />
                 {/*<Route render={NotFoundView} /> */}
                 {/* <Redirect from="/logout" to="/" /> */}
