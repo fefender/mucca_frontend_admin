@@ -3,13 +3,14 @@ import Cookies from "universal-cookie";
 import Api from "../../api";
 import {
   Modal,
-  Input,
+  Accordion,
   Button,
   Icon,
   Menu,
   Container,
   Select,
-  Header
+  Header,
+  Segment
 } from "semantic-ui-react";
 import { BrowserRouter as Link, NavLink } from "react-router-dom";
 import LoginView from "../../Login/LoginView";
@@ -26,7 +27,8 @@ class TopControl extends Component {
   state = {
     environment: cookies.get("userEnv"),
     modalOpen: false,
-    errOpen: false
+    errOpen: false,
+    activeIndex: 1
   };
 
   envHandler = (event, { value }) => {
@@ -45,6 +47,10 @@ class TopControl extends Component {
   handleOpenErr = () => this.setState({ errOpen: true });
 
   handleCloseErr = () => this.setState({ errOpen: false });
+
+  closeAccordion = () => {
+    this.setState({ activeIndex: 1 });
+  };
 
   // handleItemClick = name => this.setState({ activeItem: name });
 
@@ -76,6 +82,7 @@ class TopControl extends Component {
       cookies.set("logFile", file);
       cookies.set("logAction", action);
       // return this.redirect(action);
+      this.setState({ activeIndex: 0 });
     }
   };
 
@@ -86,19 +93,11 @@ class TopControl extends Component {
     window.location.replace(redir);
   };
   render() {
-    // const { activeItem } = this.state;
     return (
       <div className="topcontrol">
         <Container textAlign="center">
           <Menu compact>
-            {/* <Button.Group icon compact> */}
-            <Menu.Item
-            // as={Link}
-            // to="/logs"
-            // name="reviews"
-            // active={activeItem === "build"}
-            // onClick={this.handleItemClick}
-            >
+            <Menu.Item>
               <Button
                 inverted
                 size="small"
@@ -109,13 +108,7 @@ class TopControl extends Component {
                 <Icon name="sitemap" circular color="violet" size="small" />
               </Button>
             </Menu.Item>
-            <Menu.Item
-            // as={Link}
-            // to="/logs"
-            // name="run"
-            // active={activeItem === "run"}
-            // onClick={this.handleItemClick}
-            >
+            <Menu.Item>
               <span className="buttondivider" />
               <Button
                 inverted
@@ -127,13 +120,7 @@ class TopControl extends Component {
                 <Icon name="play" circular color="violet" size="small" />
               </Button>
             </Menu.Item>
-            <Menu.Item
-            // as={Link}
-            // to="/logs"
-            // name="stop"
-            // active={activeItem === "stop"}
-            // onClick={this.handleItemClick}
-            >
+            <Menu.Item>
               <span className="buttondivider" />
               <Button
                 inverted
@@ -147,7 +134,6 @@ class TopControl extends Component {
               </Button>
               <span className="buttondivider" />
             </Menu.Item>
-            {/* </Button.Group> */}
 
             <Menu.Item>
               <Select
@@ -157,8 +143,6 @@ class TopControl extends Component {
                 defaultValue={this.state.environment}
                 onChange={this.envHandler}
               />
-              {/* </Menu.Item>
-            <Menu.Item> */}
               <span className="spazio" />
               <Button
                 type="submit"
@@ -172,6 +156,47 @@ class TopControl extends Component {
               </Button>
             </Menu.Item>
           </Menu>
+
+          <Accordion>
+            <Accordion.Title
+              active={this.state.activeIndex === 0}
+              index={0}
+              className="hide"
+              // onClick={this.handleClick}
+            >
+              {" "}
+            </Accordion.Title>
+            <Accordion.Content active={this.state.activeIndex === 0}>
+              <Segment color="violet">
+                {" "}
+                Go to "Logs" to check the output
+                <br />
+                <span className="spazios" />
+                <Button
+                  inverted
+                  compact
+                  // circular
+                  color="violet"
+                  size="mini"
+                  // icon="checkmark"
+                  onClick={this.redirect}
+                >
+                  <Icon name="checkmark" /> Ok
+                </Button>
+                <Button
+                  inverted
+                  compact
+                  // circular
+                  color="violet"
+                  size="mini"
+                  // icon="remove"
+                  onClick={this.closeAccordion}
+                >
+                  <Icon name="remove" /> Later
+                </Button>
+              </Segment>
+            </Accordion.Content>
+          </Accordion>
         </Container>
         <Modal
           open={this.state.modalOpen}
