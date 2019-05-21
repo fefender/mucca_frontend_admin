@@ -27,7 +27,8 @@ class LogsViewer extends Component {
     file: cookies.get("logFile"),
     action: cookies.get("logAction"),
     loaded: false,
-    data: []
+    data: [],
+    error: false
   };
 
   openWebSocket = () => {
@@ -46,7 +47,8 @@ class LogsViewer extends Component {
 
     ws.onmessage = e => {
       // a message was received
-      console.log(e.data);
+      this.setState({ error: false });
+      console.log("message received", e.data);
       this.setState({ loaded: true });
       let stamp = this.state.data;
       if (e.data) {
@@ -58,11 +60,15 @@ class LogsViewer extends Component {
     ws.onerror = e => {
       // an error occurred
       console.log(e.message);
+      this.setState({ error: true });
     };
 
     ws.onclose = e => {
       // connection closed
       console.log(e.code, e.reason);
+      cookies.remove("logPort");
+      cookies.remove("logFile");
+      cookies.remove("logAction");
     };
   };
 
@@ -72,6 +78,7 @@ class LogsViewer extends Component {
         <Header color="violet">App {this.state.action}</Header>
         <Segment color="violet" className="logsViewerD" padded>
           <div className="logsViewer">
+            {this.state.error && <p> Ops! Retry</p>}
             {this.state.loaded &&
               this.state.data.map((value, ind) => (
                 <ul>

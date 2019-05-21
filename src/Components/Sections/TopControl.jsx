@@ -28,7 +28,10 @@ class TopControl extends Component {
     environment: cookies.get("userEnv"),
     modalOpen: false,
     errOpen: false,
-    activeIndex: 1
+    activeIndex: 1,
+    logPort: cookies.get("logPort"),
+    logFile: cookies.get("logFile"),
+    logAction: cookies.get("logAction")
   };
 
   envHandler = (event, { value }) => {
@@ -74,9 +77,9 @@ class TopControl extends Component {
       let action = res.data.data.action;
       let port = res.data.data.port;
       let file = res.data.data.fname;
-      cookies.get("logPort") !== undefined && cookies.remove("logPort");
-      cookies.get("logFile") !== undefined && cookies.remove("logFile");
-      cookies.get("logAction") !== undefined && cookies.remove("logAction");
+      this.state.logPort !== undefined && cookies.remove("logPort");
+      this.state.logFile !== undefined && cookies.remove("logFile");
+      this.state.logAction !== undefined && cookies.remove("logAction");
 
       cookies.set("logPort", port);
       cookies.set("logFile", file);
@@ -86,8 +89,9 @@ class TopControl extends Component {
     }
   };
 
-  redirect = action => {
+  redirect = () => {
     console.log(window.location);
+    let action = cookies.get("logAction");
     let ref = window.location.origin;
     let redir = ref + "/logs/" + action;
     window.location.replace(redir);

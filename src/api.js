@@ -277,6 +277,11 @@ export class Api {
           headers: res
         })
           .then(res => {
+            Promise.resolve(cookies.remove("logPort"));
+            Promise.resolve(cookies.remove("logFile"));
+            Promise.resolve(cookies.remove("logAction"));
+            Promise.resolve(cookies.remove("userToken"));
+            Promise.resolve(cookies.remove("userKey"));
             return callback(res);
           })
           .catch(function(error) {
