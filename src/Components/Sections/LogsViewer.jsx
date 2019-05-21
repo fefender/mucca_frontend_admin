@@ -31,7 +31,7 @@ class LogsViewer extends Component {
   };
 
   openWebSocket = () => {
-    console.log("openind websocket");
+    console.log("opening websocket");
     let path = "ws://localhost:" + this.state.port;
     var ws = new WebSocket(path);
 
@@ -66,14 +66,9 @@ class LogsViewer extends Component {
     };
   };
 
-  // printData=()=>{
-
-  // }
-
   render() {
     return (
       <div>
-        {/* <span className="spazioH" /> */}
         <Header color="violet">App {this.state.action}</Header>
         <Segment color="violet" className="logsViewerD" padded>
           <div className="logsViewer">
