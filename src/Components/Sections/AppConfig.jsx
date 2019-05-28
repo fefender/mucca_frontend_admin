@@ -7,12 +7,13 @@ import {
   Container,
   Button,
   Table,
-  Label,
+  Popup,
   Accordion,
   Grid,
   Segment,
   Transition
 } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 const api = new Api();
 const cookies = new Cookies();
@@ -124,9 +125,9 @@ class AppConfig extends Component {
         <Table.Row>
           <Table.Cell>{data[x].name}</Table.Cell>
           <Table.Cell>{this.state.portList[data[x].name]}</Table.Cell>
-          <Table.Cell>
+          {/* <Table.Cell>
             <Icon name="checkmark" />
-          </Table.Cell>
+          </Table.Cell> */}
         </Table.Row>
       );
       content.push(rowTitle);
@@ -137,7 +138,7 @@ class AppConfig extends Component {
           <Table.Row>
             <Table.HeaderCell>Service Name</Table.HeaderCell>
             <Table.HeaderCell>Port</Table.HeaderCell>
-            <Table.HeaderCell>Status</Table.HeaderCell>
+            {/* <Table.HeaderCell>Status</Table.HeaderCell> */}
           </Table.Row>
         </Table.Header>
         {content.map((value, ind) => (
@@ -148,6 +149,13 @@ class AppConfig extends Component {
   };
 
   render() {
+    const style = {
+      color: "#6435c9"
+    };
+    const styler = {
+      color: "#db2828"
+    };
+
     return (
       <div className="appConfig">
         <br />
@@ -186,7 +194,23 @@ class AppConfig extends Component {
               <br />
               <Segment inverted color="violet" size="mini">
                 <Header as="h5" textAlign="center">
-                  CORE
+                  <Popup
+                    trigger={
+                      <Link to="/status/core" className="statlink">
+                        CORE
+                      </Link>
+                    }
+                    content="Check core services status"
+                    position="top center"
+                    style={style}
+                  />
+                  {/* <Link
+                    to="/status/core"
+                    className="statlink"
+                    title="check core services status"
+                  >
+                    CORE
+                  </Link> */}
                 </Header>
               </Segment>
               <Accordion exclusive={false}>
@@ -264,7 +288,23 @@ class AppConfig extends Component {
               <br />
               <Segment inverted color="red" size="mini">
                 <Header as="h5" textAlign="center">
-                  CUSTOM
+                  <Popup
+                    trigger={
+                      <Link to="/status/custom" className="statlink">
+                        CUSTOM
+                      </Link>
+                    }
+                    content="Check custom services status"
+                    position="top center"
+                    style={styler}
+                  />
+                  {/* <Link
+                    to="/status/custom"
+                    className="statlink"
+                    title="check custom services status"
+                  >
+                    CUSTOM
+                  </Link> */}
                 </Header>
               </Segment>
               <Accordion exclusive={false}>

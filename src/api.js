@@ -295,6 +295,43 @@ export class Api {
     let url = process.env.REACT_APP_SERV_URL;
     let version = process.env.REACT_APP_VERSION;
     let fullPath = url + "/" + version + "/" + command + "/" + env;
+    console.log("**!!!!!***", fullPath);
+    let userToken = Promise.resolve(cookies.get("userToken"));
+    let userKey = Promise.resolve(cookies.get("userKey"));
+    Promise.all([userToken, userKey])
+      .then(function(result) {
+        let gotToken = result[0];
+        let gotKey = result[1];
+        if (gotToken && gotKey) {
+          let headers = {
+            "Content-Type": "application/json; charset=utf-8",
+            token: gotToken,
+            key: gotKey
+          };
+          return headers;
+        }
+      })
+      .then(res => {
+        axios({
+          method: "get",
+          url: fullPath,
+          headers: res
+        })
+          .then(res => {
+            return callback(res);
+          })
+          .catch(function(error) {
+            return callback(error.response);
+          });
+      });
+  };
+
+  triggerAndQuery = (env, command, query, callback) => {
+    // http://localhost:8777/v1/run/develop
+    let url = process.env.REACT_APP_SERV_URL;
+    let version = process.env.REACT_APP_VERSION;
+    let fullPath =
+      url + "/" + version + "/" + command + "/" + env + "/" + query;
     let userToken = Promise.resolve(cookies.get("userToken"));
     let userKey = Promise.resolve(cookies.get("userKey"));
     Promise.all([userToken, userKey])

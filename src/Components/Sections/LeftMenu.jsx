@@ -55,6 +55,13 @@ export class LeftMenu extends Component {
           onClick={this.handleItemClick}
         />
         <Menu.Item
+          name="status"
+          as={NavLink}
+          to="/status/all"
+          active={activeItem === "status"}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Item
           name="settings"
           as={NavLink}
           to="/settings"
@@ -66,13 +73,6 @@ export class LeftMenu extends Component {
           as={NavLink}
           to="/logs"
           active={activeItem === "logs"}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name="friends"
-          as={NavLink}
-          to="/friends"
-          active={activeItem === "friends"}
           onClick={this.handleItemClick}
         />
         <Menu.Menu position="right">

@@ -93,3 +93,16 @@
 .hide {
   display: none;
 }
+.statlink {
+  color: #fff;
+}
+.statlink:hover {
+  color: #fff;
+}
+.servName {
+  /* color: "#6435c9" !important; */
+  text-transform: capitalize;
+}
+.servGrTitle {
+  text-transform: uppercase !important;
+}

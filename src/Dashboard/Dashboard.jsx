@@ -20,6 +20,7 @@ import LeftMenu from "../Components/Sections/LeftMenu";
 import HomeView from "../Components/Views/HomeView";
 import LogoutView from "../Components/Views/LogoutView";
 import LogsView from "../Components/Views/LogsView";
+import StatusView from "../Components/Views/StatusView";
 import SettingsView from "../Components/Views/SettingsView";
 import TopControl from "../Components/Sections/TopControl";
 import "./dashboard.css";
@@ -49,8 +50,8 @@ export class Dashboard extends Component {
               <Switch>
                 <Route path="/" exact render={HomeView} />
                 {/* <Route path="/video" render={VideoView} />
-              <Route path="/playlists" render={PlaylistView} />
-              <Route path="/publishers" render={PublishersView} /> */}
+              <Route path="/playlists" render={PlaylistView} />*/}
+                <Route path="/status/:group" render={StatusView} />
                 <Route path="/settings" render={SettingsView} />
                 <Route path="/logs" render={LogsView} />
                 <Route path="/logout" render={LogoutView} />
